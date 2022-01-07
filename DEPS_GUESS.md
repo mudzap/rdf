@@ -1,4 +1,3 @@
-
 Posibles dependencias:
 ur_msgs
 ur_kinematics
@@ -15,3 +14,5 @@ trajectory_msgs
 visualization_msgs
 shape_msgs
 nav_msgs
+actionlib
+actionlib_msgs
