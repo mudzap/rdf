@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(rdf-ur5)
+project(rdf_ur)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -10,20 +10,28 @@ project(rdf-ur5)
 find_package(catkin REQUIRED COMPONENTS
   actionlib
   actionlib_msgs
+  diagnostic_msgs
   geometry_msgs
-  moveit_msgs
-  nav_msgs
+  moveit_core
+  moveit_planners_ompl
+  moveit_ros_manipulation
+  moveit_ros_move_group
+  moveit_ros_perception
+  moveit_ros_planning
+  moveit_ros_planning_interface
+  roscpp
   sensor_msgs
   shape_msgs
-  std_msgs
+  tf2
+  tf2_eigen
+  tf2_geometry_msgs
+  tf2_msgs
+  tf2_ros
+  tf2_sensor_msgs
+  tf2_tools
   trajectory_msgs
-  ur5_moveit_config
-  ur_bringup
-  ur_description
-  ur_driver
-  ur_gazebo
-  ur_kinematics
-  ur_msgs
+  ur_robot_driver
+  urdf
   visualization_msgs
 )
 
@@ -84,7 +92,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   actionlib_msgs#   geometry_msgs#   moveit_msgs#   nav_msgs#   sensor_msgs#   shape_msgs#   std_msgs#   trajectory_msgs#   ur_msgs#   visualization_msgs
+#   actionlib_msgs#   diagnostic_msgs#   geometry_msgs#   sensor_msgs#   shape_msgs#   tf2_geometry_msgs#   tf2_msgs#   tf2_sensor_msgs#   trajectory_msgs#   visualization_msgs
 # )
 
 ################################################
@@ -118,8 +126,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES rdf-ur5
-#  CATKIN_DEPENDS actionlib actionlib_msgs geometry_msgs moveit_msgs nav_msgs sensor_msgs shape_msgs std_msgs trajectory_msgs ur5_moveit_config ur_bringup ur_description ur_driver ur_gazebo ur_kinematics ur_msgs visualization_msgs
+#  LIBRARIES rdf_ur
+#  CATKIN_DEPENDS actionlib actionlib_msgs diagnostic_msgs geometry_msgs moveit_core moveit_planners_ompl moveit_ros_manipulation moveit_ros_move_group moveit_ros_perception moveit_ros_planning moveit_ros_planning_interface roscpp sensor_msgs shape_msgs tf2 tf2_eigen tf2_geometry_msgs tf2_msgs tf2_ros tf2_sensor_msgs tf2_tools trajectory_msgs ur_robot_driver urdf visualization_msgs
 #  DEPENDS system_lib
 )
 
@@ -136,7 +144,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/rdf-ur5.cpp
+#   src/${PROJECT_NAME}/rdf_ur.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -147,7 +155,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/rdf-ur5_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/rdf_ur_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -211,7 +219,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_rdf-ur5.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_rdf_ur.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
