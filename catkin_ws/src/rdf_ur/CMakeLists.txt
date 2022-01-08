@@ -5,8 +5,9 @@ project(rdf_ur)
 ## Compile as C++14, supported in ROS Melodic and newer
 ## Compile as C++17, at own risk
 # add_compile_options(-std=c++11)
-# add_compile_options(-std=c++14)
-add_compile_options(-std=c++17)
+set(CMAKE_CXX_STANDARD 14)
+# add_compile_options(-std=c++17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -37,6 +38,8 @@ find_package(catkin REQUIRED COMPONENTS
   ur_robot_driver
   urdf
   visualization_msgs
+  nodelet
+  nodelet_topic_tools
 )
 
 ## System dependencies are found with CMake's conventions
@@ -129,20 +132,21 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES rdf_ur
-#  CATKIN_DEPENDS actionlib actionlib_msgs diagnostic_msgs geometry_msgs moveit_core moveit_planners_ompl moveit_ros_manipulation moveit_ros_move_group moveit_ros_perception moveit_ros_planning moveit_ros_planning_interface roscpp sensor_msgs shape_msgs tf2 tf2_eigen tf2_geometry_msgs tf2_msgs tf2_ros tf2_sensor_msgs tf2_tools trajectory_msgs ur_robot_driver urdf visualization_msgs
+#  CATKIN_DEPENDS actionlib actionlib_msgs diagnostic_msgs geometry_msgs moveit_core moveit_planners_ompl moveit_ros_manipulation moveit_ros_move_group moveit_ros_perception moveit_ros_planning moveit_ros_planning_interface roscpp sensor_msgs shape_msgs tf2 tf2_eigen tf2_geometry_msgs tf2_msgs tf2_ros tf2_sensor_msgs tf2_tools trajectory_msgs ur_robot_driver urdf visualization_msgs nodelet nodelet_topic_tools
 #  DEPENDS system_lib
 )
 
 ###########
 ## Build ##
 ###########
+message(${catkin_INCLUDE_DIRS} )
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -159,13 +163,16 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/main.cpp)
+add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/rdf_robot.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
 # set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
+
+set_target_properties(${PROJECT_NAME}_node PROPERTIES CXX_STANDARD 14)
+
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above

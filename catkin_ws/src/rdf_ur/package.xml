@@ -74,6 +74,8 @@
   <build_depend>ur_robot_driver</build_depend>
   <build_depend>urdf</build_depend>
   <build_depend>visualization_msgs</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>nodelet_topic_tools</build_depend>
   <build_export_depend>actionlib</build_export_depend>
   <build_export_depend>actionlib_msgs</build_export_depend>
   <build_export_depend>diagnostic_msgs</build_export_depend>
@@ -99,6 +101,8 @@
   <build_export_depend>ur_robot_driver</build_export_depend>
   <build_export_depend>urdf</build_export_depend>
   <build_export_depend>visualization_msgs</build_export_depend>
+  <build_export_depend>nodelet</build_export_depend>
+  <build_export_depend>nodelet_topic_tools</build_export_depend>
   <exec_depend>actionlib</exec_depend>
   <exec_depend>actionlib_msgs</exec_depend>
   <exec_depend>diagnostic_msgs</exec_depend>
@@ -124,6 +128,8 @@
   <exec_depend>ur_robot_driver</exec_depend>
   <exec_depend>urdf</exec_depend>
   <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>nodelet_topic_tools</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
