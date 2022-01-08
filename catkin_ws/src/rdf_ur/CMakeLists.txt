@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   diagnostic_msgs
   geometry_msgs
+  message_generation
   moveit_core
   moveit_planners_ompl
   moveit_ros_manipulation
@@ -25,6 +26,7 @@ find_package(catkin REQUIRED COMPONENTS
   moveit_ros_planning
   moveit_ros_planning_interface
   roscpp
+  std_msgs
   sensor_msgs
   shape_msgs
   tf2
@@ -38,8 +40,6 @@ find_package(catkin REQUIRED COMPONENTS
   ur_robot_driver
   urdf
   visualization_msgs
-  nodelet
-  nodelet_topic_tools
 )
 
 ## System dependencies are found with CMake's conventions
@@ -134,7 +134,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES rdf_ur
-#  CATKIN_DEPENDS actionlib actionlib_msgs diagnostic_msgs geometry_msgs moveit_core moveit_planners_ompl moveit_ros_manipulation moveit_ros_move_group moveit_ros_perception moveit_ros_planning moveit_ros_planning_interface roscpp sensor_msgs shape_msgs tf2 tf2_eigen tf2_geometry_msgs tf2_msgs tf2_ros tf2_sensor_msgs tf2_tools trajectory_msgs ur_robot_driver urdf visualization_msgs nodelet nodelet_topic_tools
+  CATKIN_DEPENDS actionlib actionlib_msgs diagnostic_msgs geometry_msgs moveit_core moveit_planners_ompl moveit_ros_manipulation moveit_ros_move_group moveit_ros_perception moveit_ros_planning moveit_ros_planning_interface roscpp sensor_msgs shape_msgs std_msgs tf2 tf2_eigen tf2_geometry_msgs tf2_msgs tf2_ros tf2_sensor_msgs tf2_tools trajectory_msgs ur_robot_driver urdf visualization_msgs
 #  DEPENDS system_lib
 )
 
@@ -170,9 +170,6 @@ add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/rdf_robot.c
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
 # set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
-
-set_target_properties(${PROJECT_NAME}_node PROPERTIES CXX_STANDARD 14)
-
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
