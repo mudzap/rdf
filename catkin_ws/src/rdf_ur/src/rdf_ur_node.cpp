@@ -16,6 +16,7 @@
 #include <ros/ros.h>
 
 #include "rdf_ur/rdf_robot.h"
+#include "rdf_ur/rdf_plan.h"
 
 #include <string>
 #include <vector>
@@ -34,6 +35,9 @@ int main (int argc, char** argv) {
 
     ROS_INFO_STREAM_NAMED(_RDF_LOG_NAME_, "Starting application...");
     rdf::robot robot("beeper");
+    rdf::plan_interface plan("manipulator");
+
+    plan.move_l(0.3, 0.3, 0.3, 0.3, 0.3, 0.3);
 
     ros::waitForShutdown();
 

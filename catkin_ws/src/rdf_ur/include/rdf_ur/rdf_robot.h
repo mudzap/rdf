@@ -1,5 +1,15 @@
 #pragma once
 
+/*
+ *  ROBOT
+ *  Base class for other robot implementations
+ * 
+ * 
+ * 
+ * 
+ * 
+ */ 
+
 #define _RDF_ROBOT_LOG_NAME_ "rdf::robot"
 
 #include <ros/ros.h>
@@ -20,8 +30,16 @@
 
 namespace rdf {
 
-    enum class robot_pubs {
+    enum class robot_sub {
+    };
+
+    enum class robot_pub {
         LIFETIME
+    };
+
+    enum class robot_error {
+        OK,
+        FAIL_URDF_IMPORT
     };
 
     class robot {
@@ -32,13 +50,13 @@ namespace rdf {
             const ros::Time start_time;
 
         private:
-            virtual int on_init();
+            virtual robot_error on_init();
             urdf::Model model;
             
             ros::NodeHandle robot_nh;
             ros::Timer timer;
-            std::unordered_map<robot_pubs, ros::Subscriber> subs;
-            std::unordered_map<robot_pubs, ros::Publisher> pubs;
+            std::unordered_map<robot_pub, ros::Subscriber> subs;
+            std::unordered_map<robot_pub, ros::Publisher> pubs;
 
     };
 
