@@ -1,0 +1,10 @@
+Run the following on a container:
+
+roscore
+roslaunch ur_gazebo ur5_bringup.launch limited:=true
+roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch sim:=true limited:=true
+
+roscore can be ran in the host too.
+
+Then, in the host, run:
+gzclient
