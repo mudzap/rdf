@@ -42,3 +42,5 @@ RUN /bin/bash -c "source /ur_ws/devel/setup.bash && rosdep update"
 RUN /bin/bash -c "source /ur_ws/devel/setup.bash && rosdep install --from-paths src --ignore-src -y"
 WORKDIR /
 RUN rm -rf dummy_ws
+  
+  
