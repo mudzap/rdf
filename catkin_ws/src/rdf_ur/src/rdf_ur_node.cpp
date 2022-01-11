@@ -37,10 +37,8 @@ int main (int argc, char** argv) {
     rdf::robot robot("beeper");
     rdf::plan_interface plan("manipulator");
 
-    while(true) {
-        plan.move_l(0.3, 0.3, 0.3, 0.3, 0.3, 0.3);
-        plan.move_l(0.5, 0.5, 0.3, 0.5, 0.5, 0.5);
-    }
+    plan.move_l(0.3, 0.3, 0.3, 0.3, 0.3, 0.3);
+    plan.move_l(0.5, 0.5, 0.3, 0.5, 0.5, 0.5);
 
     ros::waitForShutdown();
 
