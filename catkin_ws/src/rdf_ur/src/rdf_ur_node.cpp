@@ -36,12 +36,13 @@ int main (int argc, char** argv) {
 
     ROS_INFO_STREAM_NAMED(_RDF_LOG_NAME_, "Starting application...");
     rdf::robot robot("beeper");
-    rdf::robot state(nh);
+    rdf::state state(main_nh);
     rdf::plan_interface plan("manipulator");
 
     plan.move_l(0.3, 0.3, 0.3, 0.3, 0.3, 0.3);
     plan.move_l(0.5, 0.5, 0.3, 0.5, 0.5, 0.5);
 
+    ROS_INFO_STREAM_NAMED(_RDF_LOG_NAME_, "Awaiting shutdown...");
     ros::waitForShutdown();
 
     return 0;

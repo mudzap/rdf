@@ -5,6 +5,10 @@ namespace rdf {
     state::state(ros::NodeHandle nh) {
         ROS_INFO_STREAM_NAMED(_RDF_STATE_LOG_NAME_, "Determining if robot is simulated...");
         is_sim = is_robot_simulated();
+
+        if(is_sim) { ROS_INFO_STREAM_NAMED(_RDF_STATE_LOG_NAME_, "Robot is simulated!"); }
+        else { ROS_INFO_STREAM_NAMED(_RDF_STATE_LOG_NAME_, "Robot is not simulated!"); }
+
         ROS_INFO_STREAM_NAMED(_RDF_STATE_LOG_NAME_, "Setting up subscribers...");   
         setup_state_subscribers(nh);
     }
