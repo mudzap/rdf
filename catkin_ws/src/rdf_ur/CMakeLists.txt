@@ -42,6 +42,9 @@ find_package(catkin REQUIRED COMPONENTS
   visualization_msgs
 )
 
+find_package(Eigen3 REQUIRED)
+find_package(Boost REQUIRED)
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -148,6 +151,8 @@ message(${catkin_INCLUDE_DIRS} )
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${Eigen3_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -163,7 +168,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/rdf_robot.cpp src/rdf_robot.cpp src/rdf_plan.cpp)
+add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/rdf_robot.cpp src/rdf_state.cpp src/rdf_plan.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -178,6 +183,7 @@ add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catk
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
 )
 
 #############

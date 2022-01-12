@@ -16,8 +16,10 @@
 #include <ros/ros.h>
 #include <ros/master.h>
 
-#include <Eigen/Dense.h>
-#include <Eigen/Geometry.h>
+#include <Eigen/Dense>
+#include <Eigen/Geometry>
+
+#include <boost/function.hpp>
 
 /* Digital twins
  *
@@ -41,6 +43,8 @@
  *  For now, lets just give the user the robot state for any reason they might want it.
  */
 
+#define _RDF_STATE_LOG_NAME_ "rdf::state"
+
 namespace rdf {
 
    // Abstracts sensor_msgs::JointState (SoA -> AoS), utilized with map
@@ -53,29 +57,30 @@ namespace rdf {
    // Abstracts tf2_msgs::TFMessage to utilize with map
    struct joint_transform {
       Eigen::Vector3d position;
-      Eigen::Quaternion velocity;
+      Eigen::Quaternion<double> velocity;
    };
 
    class state {
         
          public:
-            state(const int refresh_rate_hint = -1);
-            virtual std::unordered_map<std::string, joint_state> get_robot_joint_state(); // Returns map of joint states
-            virtual joint_state get_joint_state(const std::string& j_name);         // Returns joint state (just use map!)
-            virtual std::unordered_map<std::string, joint_state> get_robot_transforms();
-            virtual joint_state get_joint_transform(const std::string& j_name);         
+            state(ros::NodeHandle nh);
+            std::unordered_map<std::string, joint_state> get_robot_joint_state(); // Returns map of joint states
+            joint_state get_joint_state(const std::string& j_name);         // Returns joint state (just use map!)
+            std::unordered_map<std::string, joint_state> get_robot_transforms();
+            joint_state get_joint_transform(const std::string& j_name);         
 
          private:
             bool is_sim;
-            
+            ros::Subscriber tf_sub;
+            ros::Subscriber js_sub;
 
             virtual bool is_robot_simulated();
-            void setup_state_subscribers();
+            void setup_state_subscribers(ros::NodeHandle nh);
 
             std::unordered_map<std::string, joint_state> joint_states; // Not critical, maybe it is alright to use string?
             std::unordered_map<std::string, joint_transform> joint_transforms;
-            tf2_ros::Buffer tfBuffer;
-            tf2_ros::TransformListener tfListener(tfBuffer);
+            //tf2_ros::Buffer tfBuffer;
+            //tf2_ros::TransformListener tfListener(tfBuffer);
 
    };
     
