@@ -47,6 +47,13 @@
 
 namespace rdf {
 
+   //predefs
+   struct joint_state;
+   struct joint_tf;
+
+   typedef std::unordered_map<std::string, joint_state> joint_state_map;
+   typedef std::unordered_map<std::string, joint_tf> joint_tf_map;
+
    // Abstracts sensor_msgs::JointState (SoA -> AoS), utilized with map
    struct joint_state {
       double position;
@@ -55,19 +62,19 @@ namespace rdf {
    };
 
    // Abstracts tf2_msgs::TFMessage to utilize with map
-   struct joint_transform {
+   struct joint_tf {
       Eigen::Vector3d position;
-      Eigen::Quaternion<double> velocity;
+      Eigen::Quaternion<double> orientation;
    };
 
    class state {
         
          public:
             state(ros::NodeHandle nh);
-            std::unordered_map<std::string, joint_state> get_robot_joint_state(); // Returns map of joint states
+            joint_state_map get_robot_joint_states(); // Returns map of joint states
             joint_state get_joint_state(const std::string& j_name);         // Returns joint state (just use map!)
-            std::unordered_map<std::string, joint_state> get_robot_transforms();
-            joint_state get_joint_transform(const std::string& j_name);         
+            joint_tf_map get_robot_joint_tfs();
+            joint_tf get_joint_tf(const std::string& j_name);         
 
          private:
             bool is_sim;
@@ -77,8 +84,8 @@ namespace rdf {
             virtual bool is_robot_simulated();
             void setup_state_subscribers(ros::NodeHandle nh);
 
-            std::unordered_map<std::string, joint_state> joint_states; // Not critical, maybe it is alright to use string?
-            std::unordered_map<std::string, joint_transform> joint_transforms;
+            joint_state_map joint_states; // Not critical, maybe it is alright to use string?
+            joint_tf_map joint_tfs;
             //tf2_ros::Buffer tfBuffer;
             //tf2_ros::TransformListener tfListener(tfBuffer);
 

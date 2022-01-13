@@ -29,8 +29,8 @@ namespace rdf {
                 tf2::fromMsg (tf.translation, pos);
                 tf2::fromMsg (tf.rotation, quat);
 
-                const joint_transform j_tf = {pos, quat};
-                this->joint_transforms[name] = j_tf;
+                const joint_tf j_tf = {pos, quat};
+                this->joint_tfs[name] = j_tf;
             }
         };
         tf_sub = nh.subscribe("/tf", 3, tf_cb);
@@ -55,15 +55,17 @@ namespace rdf {
         return true;
     }
 
-    /*
-    std::unordered_map<std::string, joint_state> state::get_robot_joint_state() {
+    joint_state_map state::get_robot_joint_states() {
+        return joint_states;
     }
     joint_state state::get_joint_state(const std::string& j_name) {
+        return joint_states[j_name];
     }
-    std::unordered_map<std::string, joint_state> get_robot_transforms() {
+    joint_tf_map state::get_robot_joint_tfs() {
+        return joint_tfs;
     }
-    joint_state get_joint_transform(const std::string& j_name) {
+    joint_tf state::get_joint_tf(const std::string& j_name) {
+        return joint_tfs[j_name];
     } 
-    */
     
 };
