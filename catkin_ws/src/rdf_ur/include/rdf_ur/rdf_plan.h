@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 #include <ros/ros.h>
 
@@ -33,6 +34,8 @@
 #include <moveit_msgs/AttachedCollisionObject.h>
 #include <moveit_msgs/CollisionObject.h>
 
+#define _RDF_PLAN_LOG_NAME_ "rdf::plan"
+
 namespace rdf {
 
     enum class plan_error {
@@ -46,6 +49,8 @@ namespace rdf {
         public:
             plan_interface(const std::string& planning_group);
 
+            plan_error move_j(double x, double y, double z, double r, double p, double yaw);
+            plan_error move_j(double x, double y, double z);
             plan_error move_l(double x, double y, double z, double r, double p, double yaw);
             plan_error move_l(double x, double y, double z);
             // subscribe once to tf or tf_static (for initial pos)
@@ -57,9 +62,6 @@ namespace rdf {
             const robot_state::JointModelGroup* joint_model_group;                        // Stores planning group
             moveit::core::RobotStatePtr current_state_ptr;
 
-            //geometry_msgs::Pose initial_pose;
-            //geometry_msgs::Pose target_pose;
-            //std::vector<moveit_msgs::Grasp> grasps;     // Set of grasp msgs (!!!)
             std::vector<double> initial_joint_group_positions;
 
     };
