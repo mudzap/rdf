@@ -1,0 +1,87 @@
+/**
+\mainpage
+\htmlinclude manifest.html
+
+\b rdf is.... it works by means of...
+
+
+\section codeapi Code API
+
+See: rdf_state, rdf_robot, rdf_plan
+
+
+\section rosapi ROS API
+
+rosrun rdf_ur rdf_ur_node
+
+List of nodes:
+- \b rdf_ur_node
+
+<hr>
+
+\subsection rdf_ur_node rdf_ur_node
+
+rdf_ur_node description
+
+\subsubsection Usage
+\verbatim
+$ rosrun rdf_ur rdf_ur_node [standard ROS args]
+\endverbatim
+
+\par Example
+
+\verbatim
+$ rosrun rdf_ur rdf_ur_node
+\endverbatim
+
+
+\subsubsection topics ROS topics
+
+Subscribes to:
+- \b "foo": [std_msgs/FooType] description
+
+Publishes to:
+- \b "foo": [std_msgs/FooType] description
+
+\subsubsection parameters ROS parameters
+
+Reads the following parameters from the parameter server
+
+- \b "~param_name" : \b [type] description of param_name
+- \b "~my_param" : \b [string] description of my_param
+
+Sets the following parameters on the parameter server
+
+- \b "~param_name" : \b [type] description of param_name
+
+
+\subsubsection services ROS services
+- \b "foo_service": [std_srvs/FooType] description of foo_service
+
+
+<!-- END: copy for each node -->
+
+\section commandline Command-line tools
+
+This section is a catch-all for any additional tools that your package
+provides or uses that may be of use to the reader. For example:
+
+- tools/scripts (e.g. rospack, roscd)
+- roslaunch .launch files
+- xmlparam files
+
+\subsection script_name script_name
+
+Description of what this script/file does.
+
+\subsubsection Usage
+\verbatim
+$ ./script_name [args]
+\endverbatim
+
+\par Example
+
+\verbatim
+$ ./script_name foo bar
+\endverbatim
+*/

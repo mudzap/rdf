@@ -1,0 +1,43 @@
+actions: []
+authors: "Iv\xE1n Guillermo Pe\xF1a Flores <ivan.penafl@anahuac.mx>"
+brief: ''
+bugtracker: ''
+depends:
+- catkin
+- actionlib_msgs
+- moveit_planners_ompl
+- moveit_ros_planning
+- tf2_msgs
+- moveit_ros_planning_interface
+- tf2
+- roscpp
+- tf2_tools
+- actionlib
+- gtest
+- tf2_ros
+- visualization_msgs
+- message_generation
+- shape_msgs
+- trajectory_msgs
+- tf2_geometry_msgs
+- sensor_msgs
+- message_runtime
+- std_msgs
+- moveit_ros_move_group
+- tf2_eigen
+- moveit_ros_manipulation
+- diagnostic_msgs
+- urdf
+- moveit_core
+- moveit_ros_perception
+- tf2_sensor_msgs
+- ur_robot_driver
+- geometry_msgs
+description: The rdf_ur package
+license: MIT
+maintainers: "Iv\xE1n Guillermo Pe\xF1a Flores <ivan.penafl@anahuac.mx>"
+msgs: []
+package_type: package
+repo_url: ''
+srvs: []
+url: ''
