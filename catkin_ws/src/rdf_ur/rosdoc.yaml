@@ -1,0 +1,4 @@
+ - builder: doxygen
+   name: rdf
+   output_dir: rdf_ur
+   file_patterns: '*.c *.cpp *.h *.cc *.hh *.dox'

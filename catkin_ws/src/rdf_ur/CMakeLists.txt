@@ -35,19 +35,19 @@ find_package(catkin REQUIRED COMPONENTS
   tf2_msgs
   tf2_ros
   tf2_sensor_msgs
-  tf2_tools
   trajectory_msgs
   ur_robot_driver
   urdf
   visualization_msgs
 )
 
-find_package(Eigen3 REQUIRED)
-find_package(Boost REQUIRED)
+if (CATKIN_ENABLE_TESTING)
+  find_package(catkin REQUIRED COMPONENTS rostest ...)
+endif()
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(Eigen3 REQUIRED)
+find_package(Boost REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -136,15 +136,14 @@ find_package(Boost REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES rdf_ur
-  CATKIN_DEPENDS actionlib actionlib_msgs diagnostic_msgs geometry_msgs moveit_core moveit_planners_ompl moveit_ros_manipulation moveit_ros_move_group moveit_ros_perception moveit_ros_planning moveit_ros_planning_interface roscpp sensor_msgs shape_msgs std_msgs tf2 tf2_eigen tf2_geometry_msgs tf2_msgs tf2_ros tf2_sensor_msgs tf2_tools trajectory_msgs ur_robot_driver urdf visualization_msgs
-#  DEPENDS system_lib
+  #LIBRARIES rdf_ur
+  CATKIN_DEPENDS actionlib actionlib_msgs diagnostic_msgs geometry_msgs moveit_core moveit_planners_ompl moveit_ros_manipulation moveit_ros_move_group moveit_ros_perception moveit_ros_planning moveit_ros_planning_interface roscpp sensor_msgs shape_msgs std_msgs tf2 tf2_eigen tf2_geometry_msgs tf2_msgs tf2_ros tf2_sensor_msgs trajectory_msgs ur_robot_driver urdf visualization_msgs
+  DEPENDS Eigen3 Boost
 )
 
 ###########
 ## Build ##
 ###########
-message(${catkin_INCLUDE_DIRS} )
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
@@ -156,9 +155,12 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/rdf_ur.cpp
-# )
+#add_library(${PROJECT_NAME}
+  #src/${PROJECT_NAME}/rdf_ur.cpp
+  #src/${PROJECT_NAME}_node.cpp
+  #src/rdf_robot.cpp src/rdf_state.cpp
+  #src/rdf_plan.cpp
+#)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -168,7 +170,11 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/rdf_robot.cpp src/rdf_state.cpp src/rdf_plan.cpp)
+add_executable(${PROJECT_NAME}_node
+  src/${PROJECT_NAME}_node.cpp
+  src/rdf_robot.cpp src/rdf_state.cpp
+  src/rdf_plan.cpp
+)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -202,9 +208,9 @@ target_link_libraries(${PROJECT_NAME}_node
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-# install(TARGETS ${PROJECT_NAME}_node
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(TARGETS ${PROJECT_NAME}_node
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark libraries for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
@@ -233,10 +239,16 @@ target_link_libraries(${PROJECT_NAME}_node
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_rdf_ur.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
+#catkin_add_gtest(${PROJECT_NAME}-test test/test_rdf_ur.cpp)
+#if(TARGET ${PROJECT_NAME}-test)
+#  target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+#endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+if (CATKIN_ENABLE_TESTING)
+  #add_rostest(test/your_first_rostest.test)
+  #add_rostest_gtest(your_third_rostest_target tests/your_third_rostest.test src/test/your_third_rostest.cpp [more cpp files])
+  #target_link_libraries(your_third_rostest_target [libraries to depend on, e.g. ${catkin_LIBRARIES}])
+endif()
