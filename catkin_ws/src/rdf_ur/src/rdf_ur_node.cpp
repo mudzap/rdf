@@ -39,21 +39,19 @@ int main (int argc, char** argv) {
     spinner.start();
 
     ROS_INFO_STREAM_NAMED(_RDF_LOG_NAME_, "Starting application...");
-    rdf::robot robot("beeper");
     rdf::state state(main_nh);
     rdf::plan_interface plan("manipulator");
 
-    plan.move_l(0.5, 0.7, 0.5, 0.0, 1.57, 0.0);
-    plan.move_l(-0.5, 0.7, 0.5, 0.0, 1.57, 0.0);
-
+    plan.move_j(0.5, 0.7, 0.5, 0.0, 1.57, 0.0);
+    plan.move_j(-0.5, 0.7, 0.5, 0.0, 1.57, 0.0);
     
     rdf::joint_tf_map tfs = state.get_robot_joint_tfs();
     for(const auto& tf: tfs) {
         const Eigen::Vector3d pos = tf.second.position;
         const Eigen::Vector3d rot = Eigen::Matrix3d(tf.second.orientation).eulerAngles(0,1,2);
-        Eigen::IOFormat CleanFmt(3, 0, ", ", ", ", "[", "]");
+        Eigen::IOFormat CleanFmt(2, 0, ", ", ", ", "[", "]");
         std::cout   << tf.first << "\n"
-                    << "XYZ: " << pos.format(CleanFmt) << "\t\t"
+                    << "XYZ: " << pos.format(CleanFmt) << "\n"
                     << "RPY: " << rot.format(CleanFmt) 
                     << std::endl;
     }

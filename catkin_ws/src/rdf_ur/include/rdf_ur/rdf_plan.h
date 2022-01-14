@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 #include <ros/ros.h>
 
@@ -33,22 +34,69 @@
 #include <moveit_msgs/AttachedCollisionObject.h>
 #include <moveit_msgs/CollisionObject.h>
 
+#define _RDF_PLAN_LOG_NAME_ "rdf::plan"
+
 namespace rdf {
 
+    /**
+     * @brief Error codes enum for planning
+     * 
+     */
     enum class plan_error {
         OK,
         PLAN_FAIL,
         EXEC_FAIL
     };
 
+    /** @class plan_interface
+     * @brief Class for planning/programming robot by common methods such as move_j, move_l
+     */
     class plan_interface {
 
         public:
+            /** 
+             * @brief plan_interface constructor
+             * @param planning_group    Robot's planning group
+             */
             plan_interface(const std::string& planning_group);
 
+            /**
+             * @fn plan_error move_j(double x, double y, double z, double r, double p, double yaw);
+             * @brief Plans robot to move by joint interpolation
+             * 
+             * @param x     X position of end effector
+             * @param y     Y position of end effector
+             * @param z     Z position of end effector
+             * @param r     Roll of end effector
+             * @param p     Pitch of end effector
+             * @param yaw   Yaw of end effector
+             * @return plan_error 
+             */
+            plan_error move_j(double x, double y, double z, double r, double p, double yaw);
+            /**
+             * @overload plan_error move_j(double x, double y, double z);
+             * @brief Plans robot to move by joint interpolation, doesn't change end effector orientation
+             */
+            plan_error move_j(double x, double y, double z);
+
+            /**
+             * @fn plan_error move_l(double x, double y, double z, double r, double p, double yaw);
+             * @brief Plans robot to move by linear interpolation
+             * 
+             * @param x     X position of end effector
+             * @param y     Y position of end effector
+             * @param z     Z position of end effector
+             * @param r     Roll of end effector
+             * @param p     Pitch of end effector
+             * @param yaw   Yaw of end effector
+             * @return plan_error 
+             */
             plan_error move_l(double x, double y, double z, double r, double p, double yaw);
+            /**
+             * @overload plan_error move_l(double x, double y, double z);
+             * @brief Plans robot to move by linear interpolation, doesn't change end effector orientation
+             */
             plan_error move_l(double x, double y, double z);
-            // subscribe once to tf or tf_static (for initial pos)
 
         private:
             const std::string planning_group;                                               // Set of joints
@@ -57,9 +105,6 @@ namespace rdf {
             const robot_state::JointModelGroup* joint_model_group;                        // Stores planning group
             moveit::core::RobotStatePtr current_state_ptr;
 
-            //geometry_msgs::Pose initial_pose;
-            //geometry_msgs::Pose target_pose;
-            //std::vector<moveit_msgs::Grasp> grasps;     // Set of grasp msgs (!!!)
             std::vector<double> initial_joint_group_positions;
 
     };

@@ -45,23 +45,42 @@
 
 #define _RDF_STATE_LOG_NAME_ "rdf::state"
 
+/** @namespace rdf
+ * @brief Encompasses all functions and classes provided by rdf
+ */
 namespace rdf {
 
-   //predefs
+   /** @struct joint_state
+    * @brief Contains joint state necessary for control.
+    * @var joint_state::position
+    * Contains translation, or rotation of a linear or rotary joint respectively
+    * @var joint_state::velocity
+    * Contains linear or rotational velocity of a linear or rotary joint respectively
+    * @var joint_state::effort
+    * Contains force or torque of a linear or rotary joint respectively
+    */
    struct joint_state;
+
+   /** @struct joint_tf
+    * @brief Contains a joint's transform.
+    * @var joint_tf::position
+    * Vector containing the euclidean position of the joint's origin
+    * @var joint_tf::orientation
+    * Quaternion containing the joint's orientation in respect to its reference frame
+    */
    struct joint_tf;
 
+   /** @brief Unordered map of joint states, the joint's name is utilized as the map's key */
    typedef std::unordered_map<std::string, joint_state> joint_state_map;
+   /** @brief Unordered map of joint transforms, the joint's name is utilized as the map's key  */
    typedef std::unordered_map<std::string, joint_tf> joint_tf_map;
 
-   // Abstracts sensor_msgs::JointState (SoA -> AoS), utilized with map
    struct joint_state {
       double position;
       double velocity;
       double effort;
    };
 
-   // Abstracts tf2_msgs::TFMessage to utilize with map
    struct joint_tf {
       Eigen::Vector3d position;
       Eigen::Quaternion<double> orientation;
