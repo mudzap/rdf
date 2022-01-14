@@ -8,9 +8,9 @@
 
 ## TODO
 
-- Enrobustecer simulacion
+- Enrobustecer simulacion (El programa debe indicar falla en planeacion!)
 - Permitir creación de simulaciones con URDF (rdf_robot.cpp)
-- Documentación y pruebas unitarias
+- Documentación y pruebas unitarias (doxygen, gtest, rostest)
 
 ## Baja prioridad
 
