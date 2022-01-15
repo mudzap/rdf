@@ -16,6 +16,7 @@ namespace rdf {
         ROS_INFO_STREAM_NAMED(_RDF_PLAN_LOG_NAME_, "Available Planning Groups: "); std::cout << "\b";
         std::copy(move_group.getJointModelGroupNames().begin(), move_group.getJointModelGroupNames().end(),
             std::ostream_iterator<std::string>(std::cout, ", "));
+        std::cout << std::endl;
         
     }
 
@@ -32,7 +33,7 @@ namespace rdf {
         p.position.z = z;
 
         move_group.setPoseTarget(p);
-        //move_group.move();
+        move_group.move();
 
         return plan_error::OK;  
     }
@@ -58,7 +59,7 @@ namespace rdf {
         p.position.z = z;
 
         move_group.setPoseTarget(p);
-        //move_group.move();
+        move_group.move();
 
         return plan_error::OK;
     }

@@ -42,7 +42,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 if (CATKIN_ENABLE_TESTING)
-  find_package(catkin REQUIRED COMPONENTS rostest ...)
+  #find_package(catkin REQUIRED COMPONENTS rostest)
 endif()
 
 ## System dependencies are found with CMake's conventions

@@ -11,6 +11,9 @@
 #define _ROS_SPINNER_THREADS_ 2
 #endif
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #define _RDF_LOG_NAME_ "rdf"
 
 #include <ros/ros.h>
@@ -42,8 +45,9 @@ int main (int argc, char** argv) {
     rdf::state state(main_nh);
     rdf::plan_interface plan("manipulator");
 
-    plan.move_j(0.5, 0.7, 0.5, 0.0, 1.57, 0.0);
-    plan.move_j(-0.5, 0.7, 0.5, 0.0, 1.57, 0.0);
+    plan.move_j(0.4, 0.6, 0.2, M_PI, 0, M_PI);
+    plan.move_j(-0.4, 0.6, 0.2, M_PI, 0, M_PI);
+    plan.move_j(0.4, 0.6, 0.2, M_PI, 0, M_PI);
     
     rdf::joint_tf_map tfs = state.get_robot_joint_tfs();
     for(const auto& tf: tfs) {
