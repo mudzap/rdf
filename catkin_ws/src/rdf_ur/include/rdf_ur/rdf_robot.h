@@ -1,13 +1,7 @@
 #pragma once
 
-/*
- *  ROBOT
- *  Base class for other robot implementations
- * 
- * 
- * 
- * 
- * 
+/** @file rdf_robot.h
+ *  Header file for robot class.
  */ 
 
 #define _RDF_ROBOT_LOG_NAME_ "rdf::robot"
@@ -30,18 +24,32 @@
 
 namespace rdf {
 
+    /** @enum robot_sub
+     * @brief Enum for standards subscribers for created robots
+     */
     enum class robot_sub {
     };
 
+    /** @enum robot_pub
+     * @brief Enum for standards publishers for created robots
+     */
     enum class robot_pub {
-        LIFETIME
+        LIFETIME,
+        CAMERA
     };
 
+    /** @enum robot_error
+     * @brief Error codes for robot creation
+     */
     enum class robot_error {
         OK,
         FAIL_URDF_IMPORT
     };
 
+
+    /** @class robot
+     *  @brief Class for creation of robot from an urdf file
+     */
     class robot {
         
         public:

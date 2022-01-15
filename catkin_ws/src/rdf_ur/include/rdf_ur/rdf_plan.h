@@ -38,9 +38,8 @@
 
 namespace rdf {
 
-    /**
+    /** @enum plan_error
      * @brief Error codes enum for planning
-     * 
      */
     enum class plan_error {
         OK,
