@@ -45,9 +45,10 @@ int main (int argc, char** argv) {
     rdf::state state(main_nh);
     rdf::plan_interface plan("manipulator");
 
-    plan.move_j(0.4, 0.6, 0.2, M_PI, 0, M_PI);
-    plan.move_j(-0.4, 0.6, 0.2, M_PI, 0, M_PI);
-    plan.move_j(0.4, 0.6, 0.2, M_PI, 0, M_PI);
+    for (int i = 0; i <= 2; i++) {
+        plan.move_j(0.4, 0.6, 0.2, M_PI, 0, M_PI);
+        plan.move_j(-0.4, 0.6, 0.2, M_PI, 0, M_PI);
+    }
     
     rdf::joint_tf_map tfs = state.get_robot_joint_tfs();
     for(const auto& tf: tfs) {

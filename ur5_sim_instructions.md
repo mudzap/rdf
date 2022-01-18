@@ -35,7 +35,7 @@ Para mas información: https://docs.docker.com/engine/reference/commandline/buil
 
 ### Dockerfile
 
-
+Si se observa el contenido de esta, se observara una serie de comandos, estos son los mismos (con algunas modificaciones pertinentes a Docker) que aquellos que se utilizarian al momento 
 
 **Puede ignorar lo anterior y simplemente construir la imagen con "docker_build.sh".**
 

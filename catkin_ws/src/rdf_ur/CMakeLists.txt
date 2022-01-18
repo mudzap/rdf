@@ -39,10 +39,11 @@ find_package(catkin REQUIRED COMPONENTS
   ur_robot_driver
   urdf
   visualization_msgs
+  rostest # Needed here
 )
 
 if (CATKIN_ENABLE_TESTING)
-  #find_package(catkin REQUIRED COMPONENTS rostest)
+  #find_package(catkin REQUIRED COMPONENTS rostest) #Fails for some reason?
 endif()
 
 ## System dependencies are found with CMake's conventions
@@ -135,10 +136,10 @@ find_package(Boost REQUIRED)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
+  INCLUDE_DIRS include ${Eigen3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS}
   #LIBRARIES rdf_ur
   CATKIN_DEPENDS actionlib actionlib_msgs diagnostic_msgs geometry_msgs moveit_core moveit_planners_ompl moveit_ros_manipulation moveit_ros_move_group moveit_ros_perception moveit_ros_planning moveit_ros_planning_interface roscpp sensor_msgs shape_msgs std_msgs tf2 tf2_eigen tf2_geometry_msgs tf2_msgs tf2_ros tf2_sensor_msgs trajectory_msgs ur_robot_driver urdf visualization_msgs
-  DEPENDS Eigen3 Boost
+  DEPENDS EIGEN3 Boost
 )
 
 ###########

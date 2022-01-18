@@ -26,13 +26,14 @@ RUN /bin/bash -c "source /opt/ros/melodic/setup.bash; catkin_make -DCMAKE_BUILD_
 WORKDIR /
 RUN sed '/exec "$@"/i source /ur_ws/devel/setup.bash' -i ros_entrypoint.sh
 
-# action deps
+# other deps (ninja, rosdoc, doxygen, gtest)
 RUN apt-get update && \
 	apt-get install \ 
 	ros-melodic-rqt-joint-trajectory-controller \
 	libgtest-dev \
 	doxygen \
 	ros-melodic-rosdoc-lite \
+	ninja-build \ 
 	-y -qq --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists*
 
