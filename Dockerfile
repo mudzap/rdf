@@ -20,11 +20,26 @@ RUN apt update -qq && \
 	rosdep update && \
 	rosdep install --from-paths src --ignore-src -y
 # build
-RUN /bin/bash -c "source /opt/ros/melodic/setup.bash; catkin_make -DCMAKE_BUILD_TYPE=Release"
+RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && \
+	catkin_make -DCMAKE_BUILD_TYPE=Release"
+
+# install robotiq packages
+RUN mkdir /robotiq_ws
+WORKDIR /robotiq_ws
+RUN git clone https://github.com/ros-industrial/robotiq.git src
+RUN apt update -qq && \
+	rosdep update && \
+	rosdep install --from-paths src --ignore-src -y
+
+# build
+RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && \
+	source /ur_ws/devel/setup.bash --extend && \
+	catkin_make"
 
 # update entrypoint
 WORKDIR /
-RUN sed '/exec "$@"/i source /ur_ws/devel/setup.bash' -i ros_entrypoint.sh
+RUN sed '/exec "$@"/i source /ur_ws/devel/setup.bash --extend' -i ros_entrypoint.sh
+RUN sed '/exec "$@"/i source /robotiq_ws/devel/setup.bash --extend' -i ros_entrypoint.sh
 
 # other deps (ninja, rosdoc, doxygen, gtest)
 RUN apt-get update && \

@@ -31,20 +31,22 @@ docker run -it \
     	-v="$XAUTH:$XAUTH" \
     	--runtime=nvidia \
     	--rm -it --net=host \
-    	${RDF_CONTAINER_TAG}_gui bin/bash
+	--privileged \
+    	${RDF_CONTAINER_TAG}_gui /bin/bash -c " \
+echo 'Executing \"roscore\" in container named ${RDF_CONTAINER_NAME}_gui'
+roscore &
+echo 'Awaiting 5 seconds while roscore inits'
+sleep 5
+
+echo ' '
+echo 'Executing \"roslaunch ur_gazebo ur5_bringup.launch limited:=true\" in container named ${RDF_CONTAINER_NAME}_gui'
+roslaunch ur_gazebo ur5_bringup.launch limited:=true &
+echo 'Awaiting 6 seconds while ur5 sim inits'
+sleep 6
+
+echo ' '
+echo 'Executing \"roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch sim:=true limited:=true\" in container named ${RDF_CONTAINER_NAME}_gui' &
+roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch sim:=true limited:=true"
     	
 xhost -local:docker
 
-#xhost +local:docker
-#docker run \
-#	-v=$(pwd)/catkin_ws:/root/catkin_ws \
-#	-v=${HOME}/.ros:/root/.ros \
-#	-v=/tmp/.X11-unix:/tmp/.X11-unix \
-#	-e="DISPLAY" \
-#	-e="QT_X11_NO_MITSHM=1" \
-#	-e="XAUTHORITY=$XAUTH" \
-#	-v="$XAUTH:$XAUTH" \
-#	--device=/dev/dri \
-#	--group-add video \
-#	${RDF_CONTAINER_TAG}_gui bin/bash
-#xhost -local:docker
