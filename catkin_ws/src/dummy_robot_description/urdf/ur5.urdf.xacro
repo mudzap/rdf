@@ -40,6 +40,7 @@
 			<inertia ixx="${0.0833333 * mass * (3 * radius * radius + length * length)}" ixy="0.0" ixz="0.0"
 				iyy="${0.0833333 * mass * (3 * radius * radius + length * length)}" iyz="0.0"
 				izz="${0.5 * mass * radius * radius}" />
+			<origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
 		</inertial>
 	</xacro:macro>
 	
