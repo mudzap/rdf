@@ -1,0 +1,10 @@
+hardware_interface:
+  joints:
+     - robotiq_85_left_knuckle_joint 
+
+gripper:
+  type: "effort_controllers/GripperActionController"
+  joint: robotiq_85_left_knuckle_joint
+  gains:
+    robotiq_85_left_knuckle_joint: {p: 0.1, i: 0, d: 0.05}
+
