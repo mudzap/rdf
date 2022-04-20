@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<robot name="hand_e">
+	<link name="base_link"/>
+
+	<link name="palm">
+		<visual>
+			<geometry>
+				<cylinder radius="0.0375" length="0.1"/>
+			</geometry>
+			<material name="black">
+				<color rgba="0 0 0 1"/>
+			</material>
+		</visual>	
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.0136"/>
+			<inertia ixx="0.00000289"  ixy="0"  ixz="0" iyy="0.00000243" iyz="0" izz="0.00000054" />
+		</inertial>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.0375" length="0.1"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name="jaw_left">
+		<visual>
+			<geometry>
+				<box size="0.006 0.021 0.046"/>
+			</geometry>
+			<material name="gray">
+				<color rgba="0.8 0.8 0.8 1"/>
+			</material>
+		</visual>	
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="0.0136"/>
+			<inertia ixx="0.00000289"  ixy="0"  ixz="0" iyy="0.00000243" iyz="0" izz="0.00000054" />
+		</inertial>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.006 0.021 0.046"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<link name="jaw_right">
+		<visual>
+			<geometry>
+				<box size="0.006 0.021 0.046"/>
+			</geometry>
+			<material name="gray"/>
+		</visual>
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="1.0426"/>
+			<inertia ixx="0.0012353"  ixy="0"  ixz="0" iyy="0.0012353" iyz="0" izz="0.00073307" />
+		</inertial>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.006 0.021 0.046"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<joint name="base_joint" type="fixed">
+		<origin xyz="0 0 0.05" rpy="0 0 0"/>
+		<parent link="base_link"/>
+		<child link="palm"/>
+	</joint>
+
+	<joint name="left_joint" type="prismatic">
+		<origin xyz="-0.003 0 0.073" rpy="0 0 0"/>
+		<parent link="palm"/>
+		<child link="jaw_left"/>
+		<limit effort="185" velocity="0.125" lower="-0.025" upper="0"/>
+		<axis xyz="1 0 0"/>
+	</joint>
+
+	<joint name="right_joint" type="prismatic">
+		<origin xyz="0.003 0 0.073" rpy="0 0 0"/>
+		<parent link="palm"/>
+		<child link="jaw_right"/>
+		<limit effort="185" velocity="0.125" lower="0" upper="0.025"/>
+		<axis xyz="1 0 0"/>
+	</joint>
+
+	<transmission name="jaw_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_joint">
+			<hardwareInterface>PositionJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="jaw_actuator">
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+</robot>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="cartesianrobot">
+
+	<link name="base_link"/>
+	<link name="base">
+		<visual>
+			<geometry>
+				<box size="4 0.1 1"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="eslabon_vertical">
+		<visual>
+			<geometry>
+				<box size="1 4 1"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="eslabon_horizontal">
+		<visual>
+			<geometry>
+				<box size="1.2 0.5 1.2"/>
+			</geometry>
+		</visual>
+	</link>
+	<link name="efector_final">
+		<visual>
+			<geometry>
+				<box size="0.6 0.6 4"/>
+			</geometry>
+		</visual>
+	</link>
+	
+	<joint name="base_link" type="fixed" >
+		<parent link="base_link" />
+		<child link="base" />
+	</joint>
+
+	<joint name="eje_x" type="prismatic" >
+		<origin xyz="0 2.05 0"/>
+		<parent link="base" />
+		<child link="eslabon_vertical" />
+		<axis xyz="1 0 0" />
+		<limit lower="-2" upper="2" effort="0" velocity="1"/>
+	</joint>
+	
+	<joint name="eje_y" type="prismatic" >
+		<origin xyz="0 0 0"/>
+		<parent link="eslabon_vertical" />
+		<child link="eslabon_horizontal" />
+		<axis xyz="0 1 0" />
+		<limit lower="-2" upper="2" effort="0" velocity="1"/>
+	</joint>
+	
+	<joint name="eje_z" type="prismatic" >
+		<origin xyz="0.9 0 0"/>
+		<parent link="eslabon_horizontal" />
+		<child link="efector_final" />
+		<axis xyz="0 0 1" />
+		<limit lower="-2" upper="2" effort="0" velocity="1"/>
+	</joint>
+
+</robot>

@@ -714,43 +714,10 @@
   <gazebo reference="ee_link">
     <selfCollide>true</selfCollide>
   </gazebo>
-  <link name="vacuum_gripper">
-    <gravity>0</gravity>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.01" radius="0.005"/>
-      </geometry>
-      <material name="transparent">
-        <color rgba="0 0 0 0"/>
-      </material>
-    </visual>
-    <inertial>
-      <origin rpy="0 0 0" xyz="0.000000 0.000000 0.000000"/>
-      <mass value="0.0001"/>
-      <inertia ixx="1e-08" ixy="0" ixz="0" iyy="1e-08" iyz="0" izz="1e-08"/>
-    </inertial>
-  </link>
-  <joint name="gripper_joint" type="revolute">
-    <axis xyz="1 0 0"/>
-    <parent link="ee_link"/>
-    <child link="vacuum_gripper"/>
-    <origin rpy="0 1.5708 0" xyz="0.01 0.0125 0"/>
-    <limit effort="50" lower="0" upper="0" velocity="50"/>
-    <dynamics damping="0.0" friction="10"/>
-  </joint>
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="ros_control">
       <!--robotNamespace>/</robotNamespace-->
       <!--robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType-->
-    </plugin>
-    <plugin filename="libgazebo_ros_vacuum_gripper.so" name="gazebo_ros_vacuum_gripper">
-      <robotNamespace>/ur5/vacuum_gripper</robotNamespace>
-      <bodyName>vacuum_gripper</bodyName>
-      <topicName>grasping</topicName>
-      <maxForce>100</maxForce>
-      <maxDistance>0.05</maxDistance>
-      <minDistance>0.01</minDistance>
     </plugin>
     <plugin filename="libgazebo_grasp_fix.so" name="gazebo_grasp_fix">
       <arm>
@@ -761,11 +728,11 @@
         <gripper_link> robotiq_85_right_finger_tip_link</gripper_link>
       </arm>
       <forces_angle_tolerance>100</forces_angle_tolerance>
-      <update_rate>20</update_rate>
-      <grip_count_threshold>4</grip_count_threshold>
+      <update_rate>4</update_rate>
+      <grip_count_threshold>1</grip_count_threshold>
       <max_grip_count>8</max_grip_count>
-      <release_tolerance>0.00091</release_tolerance>
-      <disable_collisions_on_attach>true</disable_collisions_on_attach>
+      <release_tolerance>0.015</release_tolerance>
+      <disable_collisions_on_attach>false</disable_collisions_on_attach>
       <contact_topic>__default_topic__</contact_topic>
     </plugin>
   </gazebo>
