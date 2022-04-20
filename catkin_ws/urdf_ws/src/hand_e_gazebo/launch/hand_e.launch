@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false"/>
+    <arg name="gui" value="true"/>
+  </include>
+
+  <param name="robot_description" textfile="$(find hand_e_description)/urdf/hand_e.urdf" />
+
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model"
+    args="
+      -urdf
+      -param robot_description
+      -model gripper
+      -z 0.05"
+    output="screen" respawn="false"
+  />
+</launch>
+
