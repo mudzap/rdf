@@ -15,5 +15,14 @@
       -z 0.05"
     output="screen" respawn="false"
   />
+
+  <rosparam file="$(find hand_e_description)/controller/gripper_controller.yaml" command="load"/>
+
+  <node name="ros_control_controller_spawner"
+    pkg="controller_manager" type="spawner"
+    args="gripper_controller" output="screen" respawn="false"
+  />
+
+
 </launch>
 

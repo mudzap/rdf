@@ -98,4 +98,34 @@
         </actuator>
     </transmission>
 
-</robot>
+    <gazebo reference="palm">
+    	<material>Gazebo/Black</material>
+    </gazebo>
+    <gazebo reference="finger_left">
+    	<material>Gazebo/White</material>
+    </gazebo>
+    <gazebo reference="finger_right">
+    	<material>Gazebo/White</material>
+    </gazebo>
+
+    <link name="world"/>
+
+    <joint name="fixed" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
+
+    <gazebo>
+      <plugin name="mimic_joint" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
+        <joint>left_joint</joint>
+        <mimicJoint>right_joint</mimicJoint>
+        <multiplier>-1</multiplier>
+        <offset>0</offset>
+      </plugin>
+    </gazebo>
+
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"/>
+    </gazebo>
+
+   </robot>
