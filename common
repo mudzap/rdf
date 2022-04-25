@@ -1,3 +1,3 @@
-export RDF_CONTAINER_NAME=ros-melodic-ur
+export RDF_CONTAINER_NAME=ros-melodic-ur-new
 export RDF_CONTAINER_VERSION=latest
 export RDF_CONTAINER_TAG=${RDF_CONTAINER_NAME}:${RDF_CONTAINER_VERSION}

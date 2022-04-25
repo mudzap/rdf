@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find pnp_gazebo)/world/pnp.world"/>
+    <arg name="paused" value="true"/>
+    <arg name="gui" value="true"/>
+  </include>
+
+  <param name="robot_description" command="$(find xacro)/xacro '$(find pnp_gazebo)/urdf/ur_gripper.urdf.xacro'" />
+
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model"
+    args="
+      -urdf
+      -param robot_description
+      -model robot
+      -z 1.018
+      -J robot::shoulder_pan_joint -1.57
+      -J robot::shoulder_lift_joint -1.9
+      -J robot::elbow_joint 1.9
+      -J robot::wrist_1_joint -1.5
+      -J robot::wrist_2_joint -1.5
+      -unpause"
+    output="screen" respawn="false"
+/>
+
+<rosparam file="$(find ur_e_gazebo)/controller/arm_controller_ur5e.yaml" command="load"/>
+ <rosparam file="$(find robotiq_control)/config/gripper_85_controller.yaml" command="load"/>
+
+<node name="ros_control_controller_spawner"
+  pkg="controller_manager" type="spawner"
+  args="arm_controller
+  gripper_controller" output="screen" respawn="false"
+/>
+
+
+</launch>
+

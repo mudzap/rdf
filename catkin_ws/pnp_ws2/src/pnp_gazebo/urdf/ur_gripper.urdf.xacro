@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="ur5e_gripper">
+
+  <xacro:include filename="$(find ur_e_description)/urdf/ur5e.urdf.xacro" />
+  <xacro:include filename="$(find robotiq_description)/urdf/robotiq_85_gripper.urdf.xacro"/>
+
+  <xacro:ur5e_robot prefix="" joint_limited="true"     transmission_hw_interface="hardware_interface/PositionJointInterface"
+  />
+
+  <link name="world" />
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <xacro:robotiq_85_gripper prefix="" parent="tool0">
+    <origin xyz="0 0 0" rpy="0 -1.57 0"/>
+  </xacro:robotiq_85_gripper>
+
+  <xacro:include filename="$(find ur_e_description)/urdf/common.gazebo.xacro" />
+
+    <link name="gripper">
+    <gravity>0</gravity>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.0001"/>
+      <inertia ixx="1e-08" ixy="0" ixz="0" iyy="1e-08" iyz="0" izz="1e-08"/>
+    </inertial>
+  </link>
+
+  <joint name="gripper_joint" type="revolute">
+    <axis xyz="1 0 0" />
+    <parent link="tool0" />
+    <child link="gripper" />
+    <origin rpy="0 0 0" xyz="0 0 0.14" />
+    <limit effort="50" velocity="50" lower="0" upper="0" />
+  </joint>
+
+    <gazebo>
+    <plugin name="gazebo_ros_gripper" filename="libgazebo_ros_vacuum_gripper.so">
+        <robotNamespace>/ur5e/gripper</robotNamespace>
+        <bodyName>gripper</bodyName>
+        <topicName>grasping</topicName>
+        <maxForce>10</maxForce>
+        <maxDistance>0.05</maxDistance>
+        <minDistance>0.01</minDistance>
+    </plugin>
+  </gazebo>
+
+
+</robot>
+

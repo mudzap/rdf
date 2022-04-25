@@ -2,18 +2,26 @@
 [gripper_client, gripper_goal] = rosactionclient('/gripper_controller/gripper_cmd');
 [robot_client, robot_goal] = rosactionclient('/arm_controller/follow_joint_trajectory');
 % servicio para gripper
-gripper_on_client = rossvcclient("/ur5/gripper/on");
-gripper_off_client = rossvcclient("/ur5/gripper/off");
+gripper_on_client = rossvcclient("/ur5e/gripper/on");
+gripper_off_client = rossvcclient("/ur5e/gripper/off");
 
 % Nombres de articulaciones
 joint_names = ["elbow_joint"; "shoulder_lift_joint"; "shoulder_pan_joint";...
     "wrist_1_joint"; "wrist_2_joint"; "wrist_3_joint"];
+
 % Posiciones de robot (en radianes)
-home =     [1.94; -2.36; -1.57; -1.15; -1.63; 0.0];
-p1_lower = [1.5; -0.98; -0.74; -2.06; -1.63; 0.75];
-p1_upper = [1.45; -1.05; -0.74; -1.97; -1.63; 0.88];
-p2_lower = [1.5; -0.98; -2.51; -2.08; -1.57; -1.01];
-p2_upper = [1.69; -1.24; -2.31; -2.06; -1.63; -0.75];
+home =     [1.95; -1.95; -1.57; -1.57; -1.51; 0.13];
+p1_lower = [1.59; -0.93; -0.79; -2.22; -1.57; -2.36];
+p1_upper = [1.55; -0.99; -0.79; -2.13; -1.57; -2.36];
+p2_lower = [1.59; -0.93; -2.74; -2.22; -1.57; 1.96];
+p2_upper = [1.55; -0.99; -2.74; -2.13; -1.57; 1.96];
+
+% original
+%home =     [1.94; -2.36; -1.57; -1.15; -1.63; 0.0];
+%p1_lower = [1.5; -0.98; -0.74; -2.06; -1.63; 0.75];
+%p1_upper = [1.45; -1.05; -0.74; -1.97; -1.63; 0.88];
+%p2_lower = [1.5; -0.98; -2.51; -2.08; -1.57; -1.01];
+%p2_upper = [1.69; -1.24; -2.31; -2.06; -1.63; -0.75];
 % Posicion de gripper
 gripper_pos = 0.4;
 
